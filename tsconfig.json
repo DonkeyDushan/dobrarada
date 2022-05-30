@@ -3,6 +3,7 @@
     "target": "ES6",
     "jsx": "react",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "moduleResolution": "Node",
   }
 }
