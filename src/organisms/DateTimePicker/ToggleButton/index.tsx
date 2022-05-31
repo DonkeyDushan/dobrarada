@@ -4,18 +4,29 @@ import styles from "./styles.module.css";
 import generateTimeList from "../../../utils/timeList";
 
 type ButtonTypes = {
-  setToggleStartEnd: (toggleStartEnd: boolean) => void,
-  start: boolean,
-  date: string,
+  toggle: "start" | "end",
+  setToggle: (toggle: "start" | "end") => void,
+  startDate: string,
+  endDate: string,
 }
 
-const ToggleButton = ({ setToggleStartEnd, start, date }: ButtonTypes) => {
+const ToggleButton = ({ toggle, setToggle, startDate, endDate }: ButtonTypes) => {
 
   return (
-    <button className={styles.ToggleButton} onClick={() => setToggleStartEnd(start)}>
-      {start ? "Začátek" : "Konec"}
-      {date}
-    </button>
+    <div className="w-[300px] grid grid-cols-2">
+      <button
+        className={`grid grid-cols-2, :disabled-text-text-light-gray ${toggle === "start" ? "text-main-white bg-main-blue" : "text-text-color border-1 border-dark-gray"}`}
+        onClick={() => setToggle("start")}>
+        <span> Začátek </span>
+        <span> {startDate} </span>
+      </button>
+      <button
+        className={`grid grid-cols-2, ${toggle === "end" ? "text-main-white bg-main-blue" : "text-text-color border-1 border-dark-gray"}`}
+        onClick={() => setToggle("end")}>
+          <span> Konec </span>
+          <span> {endDate} </span>
+      </button>
+    </div>
   );
 };
 

@@ -11,34 +11,39 @@ const DateTimePicker = () => {
   const DAY_IN_MS = 86400000;
   const MIN_IN_MS = 60000;
 
-  const [toggleStartEnd, setToggleStartEnd] = useState<boolean>(true);
-  const [startDate, setStartDate] = useState<Date | undefined>();
+  const [toggle, setToggle] = useState<"start" | "end">("start");
+  const [sameDay, setSameDay] = useState(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [startTime, setStartTime] = useState<number>(0);
-  const [endDate, setEndDate] = useState<Date | undefined>();
+  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
   const [endTime, setEndTime] = useState<number>(DAY_IN_MS - MIN_IN_MS);
 
   useEffect(() => {
-    if (!endDate) setEndDate(startDate)
-  }, [startDate])
+    if (startDate && (sameDay || (endDate && startDate?.getTime() > endDate?.getTime()))) setEndDate(startDate);
+    if (startDate === endDate && endTime < startTime) setEndTime(DAY_IN_MS - MIN_IN_MS);
+  }, [startDate, startTime])
 
   return (
-    <div>
+    <div className="w-[500px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-dark-gray">
       <ToggleButton
-        setToggleStartEnd={setToggleStartEnd}
-        start
-        date={startDate ? `${startDate.toLocaleDateString()} ${msToTime(startTime)}` : ""}
+        toggle={toggle}
+        setToggle={setToggle}
+        startDate={startDate ? `${startDate.toLocaleDateString()} ${msToTime(startTime)}` : "Zadejte"}
+        endDate={startDate || endDate ? `${endDate?.toLocaleDateString()} ${msToTime(endTime)}` : "Zadejte"}
       />
-      <ToggleButton
-        setToggleStartEnd={setToggleStartEnd}
-        start={false}
-        date={startDate || endDate ? `${endDate?.toLocaleDateString()} ${msToTime(endTime)}` : ""}
-      />
-      <div className={styles.PickersWrapper} >
-        {toggleStartEnd
-        ? <DatePicker setDate={setStartDate} date={startDate} />
-        : <DatePicker setDate={setEndDate} date={endDate} />}
-        <TimePicker setTime={toggleStartEnd ? setStartTime : setEndTime} time={toggleStartEnd ? startTime : endTime} />
-      </div>
+      {
+        toggle === "start"
+          ?
+          <div className="grid grid-cols-2 w-full">
+            <DatePicker setDate={setStartDate} date={startDate} />
+            <TimePicker start setTime={setStartTime} time={startTime} />
+          </div>
+          :
+          <div className="grid grid-cols-2 w-full">
+            <DatePicker setDate={setEndDate} date={endDate} minDate={startDate} setSameDay={setSameDay} />
+            <TimePicker setTime={setEndTime} time={endTime} minTime={startDate === endDate ? startTime : undefined} />
+          </div>
+      }
     </div>
   );
 };
