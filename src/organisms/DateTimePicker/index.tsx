@@ -21,8 +21,8 @@ const DateTimePicker = () => {
 
   useEffect(() => {
     if (startDate && (sameDay || (endDate && startDate?.getTime() > endDate?.getTime()))) setEndDate(startDate);
-    if (startDate === endDate && endTime < startTime) setEndTime(DAY_IN_MS - MIN_IN_MS);
-  }, [startDate, startTime])
+    if (startDate?.getTime() === endDate?.getTime() && endTime < startTime) setEndTime(DAY_IN_MS - MIN_IN_MS);
+  }, [startDate, endDate, startTime])
 
   return (
     <div className="w-[500px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-gray-border">
