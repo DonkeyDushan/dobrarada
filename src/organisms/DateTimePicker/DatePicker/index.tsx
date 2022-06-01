@@ -1,28 +1,41 @@
 import React from "react";
-import { Calendar, defaultCalendarStrings } from "@fluentui/react/lib/Calendar";
+import { Calendar, defaultCalendarStrings, ICalendarDayProps, ICalendarDayStyles, ICalendarDayGridStyles } from "@fluentui/react/lib/Calendar";
 import styles from "./styles.module.css";
+import classNames from "classnames";
 
 type DateTypes = {
-  setDate: (date: Date | undefined) => void,
-  date: Date | undefined,
+  setSelectedDate: (selectedDate: Date | undefined) => void,
+  selectedDate: Date | undefined,
   minDate?: Date,
   setSameDay?: (sameDay: boolean) => void,
+  minMax: (Date | undefined)[],
 }
 
-const DatePicker = ({ setDate, date, minDate, setSameDay }: DateTypes) => {
+const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax }: DateTypes) => {
   return (
     <Calendar
       showMonthPickerAsOverlay
       highlightSelectedMonth
       showGoToToday={false}
-      onSelectDate={(value)=> {
-        setDate(value);
+      onSelectDate={(value) => {
+        setSelectedDate(value);
         if (setSameDay) setSameDay(false);
       }}
-      value={date}
+      value={selectedDate}
       strings={defaultCalendarStrings}
       minDate={minDate}
-      styles={styles.Calendar}
+      calendarDayProps={{
+        customDayCellRef: (
+          element: HTMLElement,
+          date: Date,
+        ) => {
+          if (element && minMax[0] && minMax[1]) {
+            if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
+              element.classList.add(styles.DayButton);
+            } else element.classList.remove(styles.DayButton);
+          }
+        },
+      }}
     />
   );
 };

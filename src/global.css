@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply box-border
+  }
+}
+
 .dayButton-125 {
   @apply text-sm
 }
+

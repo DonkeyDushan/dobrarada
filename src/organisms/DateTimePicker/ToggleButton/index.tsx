@@ -13,19 +13,20 @@ type ButtonTypes = {
 const ToggleButton = ({ toggle, setToggle, startDate, endDate }: ButtonTypes) => {
 
   return (
-    <div className="w-[300px] grid grid-cols-2">
+    <div className="relative w-[300px] flex bg-gray-300 outline outline-[3px] outline-gray-300">
       <button
-        className={`grid grid-cols-2, :disabled-text-text-light-gray ${toggle === "start" ? "text-main-white bg-main-blue" : "text-text-color border-1 border-dark-gray"}`}
+        className={`z-[2] w-[50%] px-[10px] py-[5px] grid grid-rows-2}`}
         onClick={() => setToggle("start")}>
-        <span> Začátek </span>
-        <span> {startDate} </span>
+        <span className="flex content-start"> Začátek </span>
+        <span className="flex content-start"> {startDate} </span>
       </button>
       <button
-        className={`grid grid-cols-2, ${toggle === "end" ? "text-main-white bg-main-blue" : "text-text-color border-1 border-dark-gray"}`}
+        className={`z-[2] w-[50%] px-[10px] py-[5px] grid grid-rows-2}`}
         onClick={() => setToggle("end")}>
-          <span> Konec </span>
-          <span> {endDate} </span>
+          <span className="flex content-start"> Konec </span>
+          <span className="flex content-start"> {endDate} </span>
       </button>
+      <div className={`absolute w-[50%] h-[100%] bg-white transition ${toggle === "start" && "shadow-md-right"} ${toggle === "end" && "translate-x-[100%] shadow-md-left" }`}/>
     </div>
   );
 };

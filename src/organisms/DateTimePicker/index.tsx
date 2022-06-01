@@ -10,12 +10,13 @@ import ToggleButton from "./ToggleButton";
 const DateTimePicker = () => {
   const DAY_IN_MS = 86400000;
   const MIN_IN_MS = 60000;
+  const todaysDate= new Date((new Date()).setHours(0, 0, 0, 0));
 
   const [toggle, setToggle] = useState<"start" | "end">("start");
   const [sameDay, setSameDay] = useState(true);
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date());
+  const [startDate, setStartDate] = useState<Date | undefined>(todaysDate);
   const [startTime, setStartTime] = useState<number>(0);
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  const [endDate, setEndDate] = useState<Date | undefined>(todaysDate);
   const [endTime, setEndTime] = useState<number>(DAY_IN_MS - MIN_IN_MS);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const DateTimePicker = () => {
   }, [startDate, startTime])
 
   return (
-    <div className="w-[500px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-dark-gray">
+    <div className="w-[500px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-gray-border">
       <ToggleButton
         toggle={toggle}
         setToggle={setToggle}
@@ -35,13 +36,13 @@ const DateTimePicker = () => {
         toggle === "start"
           ?
           <div className="grid grid-cols-2 w-full">
-            <DatePicker setDate={setStartDate} date={startDate} />
+            <DatePicker setSelectedDate={setStartDate} selectedDate={startDate} minMax={[startDate, endDate]} />
             <TimePicker start setTime={setStartTime} time={startTime} />
           </div>
           :
           <div className="grid grid-cols-2 w-full">
-            <DatePicker setDate={setEndDate} date={endDate} minDate={startDate} setSameDay={setSameDay} />
-            <TimePicker setTime={setEndTime} time={endTime} minTime={startDate === endDate ? startTime : undefined} />
+            <DatePicker setSelectedDate={setEndDate} selectedDate={endDate} minDate={startDate} setSameDay={setSameDay} minMax={[startDate, endDate]} />
+            <TimePicker setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
           </div>
       }
     </div>

@@ -1,5 +1,10 @@
 .Calendar {
-  .dayButton-125 {
-    font-size: 16px;
+  .dayCell-118 {
+    background-color: #000000;
   }
+}
+
+.DayButton {
+  background-color: #edebe9;
+  border-radius: 0;
 }
