@@ -10,16 +10,17 @@ import ToggleButton from "./ToggleButton";
 const DateTimePicker = () => {
   const DAY_IN_MS = 86400000;
   const MIN_IN_MS = 60000;
-  const todaysDate= new Date((new Date()).setHours(0, 0, 0, 0));
+  /* const todaysDate= new Date((new Date()).setHours(0, 0, 0, 0)); */
 
   const [toggle, setToggle] = useState<"start" | "end">("start");
   const [sameDay, setSameDay] = useState(true);
-  const [startDate, setStartDate] = useState<Date | undefined>(todaysDate);
+  const [startDate, setStartDate] = useState<Date | undefined>();
   const [startTime, setStartTime] = useState<number>(0);
-  const [endDate, setEndDate] = useState<Date | undefined>(todaysDate);
+  const [endDate, setEndDate] = useState<Date | undefined>();
   const [endTime, setEndTime] = useState<number>(DAY_IN_MS - MIN_IN_MS);
 
   useEffect(() => {
+    if (startDate) setToggle("end");
     if (startDate && (sameDay || (endDate && startDate?.getTime() > endDate?.getTime()))) setEndDate(startDate);
     if (startDate?.getTime() === endDate?.getTime() && endTime < startTime) setEndTime(DAY_IN_MS - MIN_IN_MS);
   }, [startDate, endDate, startTime])
@@ -36,12 +37,12 @@ const DateTimePicker = () => {
         toggle === "start"
           ?
           <div className="grid grid-cols-2 w-full">
-            <DatePicker setSelectedDate={setStartDate} selectedDate={startDate} minMax={[startDate, endDate]} />
+            <DatePicker setSelectedDate={setStartDate} selectedDate={startDate} minMax={[startDate, endDate]} toggle={toggle} />
             <TimePicker start setTime={setStartTime} time={startTime} />
           </div>
           :
           <div className="grid grid-cols-2 w-full">
-            <DatePicker setSelectedDate={setEndDate} selectedDate={endDate} minDate={startDate} setSameDay={setSameDay} minMax={[startDate, endDate]} />
+            <DatePicker setSelectedDate={setEndDate} selectedDate={endDate} minDate={startDate} setSameDay={setSameDay} minMax={[startDate, endDate]} toggle={toggle} />
             <TimePicker setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
           </div>
       }

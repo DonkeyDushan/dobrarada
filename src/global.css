@@ -8,7 +8,8 @@
   }
 }
 
-.dayButton-125 {
-  @apply text-sm
+@layer components {
+  .ms-CalendarDay-hoverStyle {
+    background-color: #fff !important;
+  }
 }
-

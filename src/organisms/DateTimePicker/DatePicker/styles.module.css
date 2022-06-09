@@ -1,10 +1,86 @@
-.Calendar {
-  .dayCell-118 {
-    background-color: #000000;
+.RangeButton {
+  background-color: #dbf0ff;
+  border-radius: 0;
+
+  &:global(.ms-CalendarDay-hoverStyle) {
+    background-color: #dbf0ff !important;
+  }
+
+  &:global(.ms-CalendarDay-daySelected) {
+    background: linear-gradient(90deg, #dbf0ff 50%, transparent 50%);
   }
 }
 
-.DayButton {
-  background-color: #edebe9;
+.RangeButtonLeft {
   border-radius: 0;
+  background: linear-gradient(90deg, #dbf0ff 50%, transparent 50%);
+}
+
+.RangeButtonRight {
+  border-radius: 0;
+  background: linear-gradient(-90deg, #dbf0ff 50%, transparent 50%);
+}
+
+.HoverRangeButton {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border-top: 1px dashed #dbf0ff;
+    border-bottom: 1px dashed #dbf0ff;
+    border-right: none;
+    border-left: none;
+    z-index: -1;
+  }
+}
+
+.HoverRangeButtonLeft {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    border-top: 1px dashed #dbf0ff;
+    border-bottom: 1px dashed #dbf0ff;
+    border-right: none;
+    border-left: none;
+    z-index: -1;
+  }
+}
+
+.HoverRangeButtonRight {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    width: 50%;
+    height: 100%;
+    border-top: 1px dashed #dbf0ff;
+    border-bottom: 1px dashed #dbf0ff;
+    border-right: none;
+    border-left: none;
+    z-index: -1;
+  }
+}
+
+:global(.daySelected-124.ms-CalendarDay-hoverStyle) {
+  background-color: transparent !important;
+}
+
+:global(.daySelected-146.ms-CalendarDay-hoverStyle) {
+  background-color: transparent !important;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+:global(.ms-CalendarDay-hoverStyle) {
+  background-color: transparent !important;
+}
+
+:global(.daySelected-124) {
+  background-color: transparent !important;
 }
