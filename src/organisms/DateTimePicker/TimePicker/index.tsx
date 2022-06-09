@@ -14,11 +14,15 @@ const TimePicker = ({ setTime, time, start, minTime }: TimeTypes) => {
   const MIN_IN_MS = 60000;
 
   return (
-    <div className="grid grid-cols-4 gap-1 px-[10px] py-px my-[22px] h-[196px] overflow-auto">
+    <div className="grid grid-cols-4 gap-2 px-[10px] py-px my-[22px] h-min max-h-[235px] overflow-auto">
       {generateTimeList(30).map((num) => (
         <button
-          className={classNames("flex justify-center align-middle py-2 text-sm text-gray-500 hover:bg-gray-100 disabled:text-gray-disabled disabled:bg-white",
-            { "ring-1 ring-gray-border bg-gray-200 hover:bg-gray-200": num === time })}
+          className={classNames("flex justify-center align-middle rounded-full ring-0 py-2 text-sm leading-none text-gray-500",
+            { "ring-1 ring-gray-border bg-gray-200 hover:bg-gray-200": num === time },
+            { "hidden": minTime && num < (minTime + MIN_IN_MS * 30)},
+            { "bg-main-blue hover:bg-main-blue text-white fonnt-medium": num === time },
+            { "hover:bg-[#DBF0FF]": num !== time },
+            )}
           onClick={() => setTime(num)}
           key={num}
           disabled={minTime ? num < (minTime + MIN_IN_MS * 30) : false}

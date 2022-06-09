@@ -26,7 +26,7 @@ const DateTimePicker = () => {
   }, [startDate, endDate, startTime])
 
   return (
-    <div className="w-[500px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-gray-border">
+    <div className="w-[511px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-gray-border">
       <ToggleButton
         toggle={toggle}
         setToggle={setToggle}

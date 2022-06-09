@@ -62,18 +62,41 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
       value={selectedDate}
       strings={defaultCalendarStrings}
       minDate={minDate}
+      maxDate={new Date(Date.now())}
       styles={gridStyle}
+      calendarMonthProps={{
+        styles: () => ({
+          root: {
+            width: "100%",
+          }
+        })
+      }}
       calendarDayProps={{
         styles: () => ({
+          root: {
+            width: "100%",
+          },
           table: {
+            width: "100%",
             "tbody": {
               display: "grid",
-              rowGap: "10px",
+              gap: "8px 0px",
+              disableShrink: "true",
+              width: "100%",
+              "tr": {
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+                "th": {
+                  display: "grid",
+                  alignItems: "center",
+                }
+              },
             },
           },
           dayCell: {
-            fontSize: 16,
-            lineHeight: 16,
+            fontSize: 14,
+            lineHeight: 14,
+            width: "100%",
             backgroundColor: "transparent",
             "&:hover": {
               button: {
@@ -83,9 +106,9 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
             },
           },
           dayButton: {
-            fontSize: 16,
+            fontSize: 14,
             height: "100%",
-            width: "100%",
+            width: "28px",
           },
           dayIsToday: {
             backgroundColor: "#fff",
@@ -116,7 +139,7 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
             if ([minMax[0]?.getTime(), minMax[1]?.getTime()].includes(date.getTime())) {
               element.classList.add("daySelected-146", ".daySelected-124", "ms-CalendarDay-daySelected");
             } else element.classList.remove("daySelected-146", ".daySelected-124", "ms-CalendarDay-daySelected");
- 
+
             // Hover range
             if (dateHover) {
               if (toggle === "start" && minMax[1]) {
@@ -126,7 +149,7 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
                 } else if (date.getTime() < minMax[1].getTime() && date.getTime() === dateHover.getTime()) {
                   element.classList.add(styles.HoverRangeButtonRight);
                 } else element.classList.remove(styles.HoverRangeButton, styles.HoverRangeButtonRight);
-              } 
+              }
               if (toggle === "end" && minMax[0]) {
                 if (date.getTime() > minMax[0].getTime() && date.getTime() < dateHover.getTime()) {
                   element.classList.add(styles.HoverRangeButton);
@@ -134,11 +157,11 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
                 } else if (date.getTime() > minMax[0].getTime() && date.getTime() === dateHover.getTime()) {
                   element.classList.add(styles.HoverRangeButtonLeft);
                 } else element.classList.remove(styles.HoverRangeButton, styles.HoverRangeButtonLeft);
-              } 
+              }
             } else element.classList.remove(styles.HoverRangeButton);
 
             // Select range
-            if (minMax[0] && minMax[1] && minMax[0] !== minMax[1]) {
+            if (minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
               if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
                 if (minMax[0].getTime() === date.getTime()) {
                   element.classList.add(styles.RangeButtonRight);
@@ -149,7 +172,7 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
                   element.classList.add(styles.RangeButton)
                 };
               } else element.classList.remove(styles.RangeButton);
-            }
+            } else element.classList.remove(styles.RangeButton);
 
             element.onmouseenter = () => {
               setDateHover(date)
