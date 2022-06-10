@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import DateTimePicker from "./organisms/DateTimePicker";
 import DatePicker from "./organisms/DateTimePicker/DatePicker";
+import "./index.css";
 
-const App = () => {
-  return (
-    <>
-      <DateTimePicker />
-    </>
-  );
-};
+const App = () => <DateTimePicker />;
 
 ReactDOM.render(<App />, document.getElementById("app"));

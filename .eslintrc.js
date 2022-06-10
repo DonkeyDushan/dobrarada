@@ -11,6 +11,7 @@ module.exports = {
     "linebreak-style": "off",
     "@typescript-eslint/quotes": ["error", "double"],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       "error",
       {
@@ -18,16 +19,5 @@ module.exports = {
         "unnamedComponents": "arrow-function"
       }
     ],
-    'at-rule-no-unknown': [true, {
-      ignoreAtRules: [
-        'tailwind',
-        'apply',
-        'variants',
-        'responsive',
-        'screen'
-      ]
-    }],
-    'declaration-block-trailing-semicolon': null,
-    'no-descending-specificity': null,
-  }
+  },
 };
