@@ -3,6 +3,9 @@ module.exports = {
   mount: {
     src: "/",
   },
+  buildOptions: {
+    baseUrl: "/build",
+  },
   optimize: {
     bundle: true,
     minify: true,
