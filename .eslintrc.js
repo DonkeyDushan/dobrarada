@@ -7,6 +7,7 @@ module.exports = {
     browser: true,
   },
   rules: {
+    "max-len": "140",
     "arrow-body-style": "off",
     "linebreak-style": "off",
     "@typescript-eslint/quotes": ["error", "double"],

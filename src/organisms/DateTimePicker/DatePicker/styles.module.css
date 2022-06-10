@@ -1,86 +1,133 @@
-.RangeButton {
-  background-color: #dbf0ff;
-  border-radius: 0;
-
-  &:global(.ms-CalendarDay-hoverStyle) {
-    background-color: #dbf0ff !important;
-  }
-
-  &:global(.ms-CalendarDay-daySelected) {
-    background: linear-gradient(90deg, #dbf0ff 50%, transparent 50%);
-  }
-}
-
-.RangeButtonLeft {
-  border-radius: 0;
-  background: linear-gradient(90deg, #dbf0ff 50%, transparent 50%);
-}
-
-.RangeButtonRight {
-  border-radius: 0;
-  background: linear-gradient(-90deg, #dbf0ff 50%, transparent 50%);
-}
-
-.HoverRangeButton {
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0px;
+.calendar {
+  table {
     width: 100%;
-    height: 100%;
-    border-top: 2px dashed #dbf0ff;
-    border-bottom: 2px dashed #dbf0ff;
-    border-right: none;
-    border-left: none;
-    z-index: -1;
+
+    tbody {
+      display: grid;
+      gap: 8px 0px;
+      disableShrink: true;
+      width: 100%;
+
+      tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;        
+      } 
+    }
   }
-}
 
-.HoverRangeButtonLeft {
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0px;
-    width: 50%;
-    height: 100%;
-    border-top: 2px dashed #dbf0ff;
-    border-bottom: 2px dashed #dbf0ff;
-    border-right: none;
-    border-left: none;
-    z-index: -1;
+  th {
+    alignItems: center;
+    font-size: 14px;
   }
-}
 
-.HoverRangeButtonRight {
-  &::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    width: 50%;
-    height: 100%;
-    border-top: 2px dashed #dbf0ff;
-    border-bottom: 2px dashed #dbf0ff;
-    border-right: none;
-    border-left: none;
-    z-index: -1;
+  td {
+    width: 100%;
+    background-color: transparent;
+
+    &.ms-CalendarDay-hoverStyle {
+      background-color: transparent;
+    }
+
+    button {
+      font-size: 14px;
+      height: 100%;
+      width: 28px;
+
+      &.today {
+        background-color: transparent !important;
+        color: #343434 !important;
+        font-weight: 400 !important;
+        border: 1px solid #0078d4;
+        border-radius: 50%;
+      }
+    }
+
+    &::after {
+      content: none;
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      button {
+        background-color: #DBF0FF;
+        border-radius: 50%;
+
+        &.today {
+          background-color: #DBF0FF !important;
+        }
+      }
+    }
+
+    &:global(.ms-CalendarDay-daySelected) {
+      background-color: transparent !important;
+    }
+
+    &.selected {
+      background-color: transparent !important;
+      &:hover {
+        background-color: transparent !important;
+      }
+
+      &::after {
+        content: "";
+        border: none;
+      }
+
+      button {
+        background-color: #0078d4;
+        border-radius: 50%;
+        color: #fff;
+
+        &.today {
+          background-color: #0078d4 !important;
+          color: #fff !important;
+        }
+      }
+    }
+
+    &.rangeButton {
+      background-color: #dbf0ff;
+      border-radius: 0;
+      &:hover {
+        background-color: #dbf0ff;
+      }
+
+      &.left {
+        background: linear-gradient(90deg, #dbf0ff 50%, transparent 50%);
+      }
+
+      &.right {
+        background: linear-gradient(-90deg, #dbf0ff 50%, transparent 50%);
+      }
+    }
+
+    &.hoverRangeButton {
+      &::after {
+        content: "" !important;
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        border-top: 1.5px dashed #DBF0FF;
+        border-bottom: 1.5px dashed #DBF0FF;
+        border-right: none;
+        border-left: none;
+        z-index: -1;
+      }
+
+      &.hoverLeft {
+        &::after {
+          width: 50%;
+        }
+      }
+
+      &.hoverRight {
+          &::after {
+          width: 50%;
+          left: 14px;
+        }
+      }
+    }   
   }
-}
-
-:global(.daySelected-124.ms-CalendarDay-hoverStyle) {
-  background-color: transparent !important;
-}
-
-:global(.daySelected-146.ms-CalendarDay-hoverStyle) {
-  background-color: transparent !important;
-  &:hover {
-    background-color: transparent !important;
-  }
-}
-
-:global(.ms-CalendarDay-hoverStyle) {
-  background-color: transparent !important;
-}
-
-:global(.daySelected-124) {
-  background-color: transparent !important;
 }

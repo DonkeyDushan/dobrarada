@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable max-len */
+/* eslint-disable react/require-default-props */
 import React, { useState, memo } from "react";
-
 import { Calendar, defaultCalendarStrings, ICalendarStyles } from "@fluentui/react/lib/Calendar";
 import styles from "./styles.module.css";
 
@@ -8,6 +10,7 @@ type DateTypes = {
   selectedDate: Date | undefined,
   minDate?: Date,
   setSameDay?: (sameDay: boolean) => void,
+  sameDay: boolean,
   minMax: (Date | undefined)[],
   toggle: "start" | "end",
 };
@@ -20,7 +23,11 @@ const gridStyle: Partial<ICalendarStyles> = {
   },
 };
 
-const notSelectedDateStyle = {
+/* const notSelectedDateStyle = {
+  backgroundColor: "transparent",
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
   "&::after": {
     content: "none !important",
   },
@@ -45,10 +52,10 @@ const selectedDateStyle = {
     color: "#fff",
     fontWeight: 500,
   },
-};
+}; */
 
 const DatePicker = ({
-  setSelectedDate, selectedDate, minDate, setSameDay, minMax, toggle,
+  setSelectedDate, selectedDate, minDate, setSameDay, sameDay, minMax, toggle,
 }: DateTypes) => {
   const [dateHover, setDateHover] = useState<Date | undefined>();
 
@@ -66,114 +73,79 @@ const DatePicker = ({
       minDate={minDate}
       maxDate={new Date(Date.now())}
       styles={gridStyle}
-      calendarMonthProps={{
-        styles: () => ({
-          root: {
-            width: "100%",
-          },
-        }),
-      }}
+
       calendarDayProps={{
-        styles: () => ({
+        className: styles.calendar,
+        styles: {
           root: {
             width: "100%",
           },
-          table: {
-            width: "100%",
-            tbody: {
-              display: "grid",
-              gap: "8px 0px",
-              disableShrink: "true",
-              width: "100%",
-              tr: {
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-                th: {
-                  display: "grid",
-                  alignItems: "center",
-                },
-              },
-            },
-          },
-          dayCell: {
-            fontSize: 14,
-            lineHeight: 14,
-            width: "100%",
-            backgroundColor: "transparent",
-            "&:hover": {
-              button: {
-                backgroundColor: "#DBF0FF",
-                borderRadius: "50%",
-              },
-            },
-          },
-          dayButton: {
-            fontSize: 14,
-            height: "100%",
-            width: "28px",
-          },
-          dayIsToday: {
-            backgroundColor: "#fff",
-            color: "#343434",
-            fontWeight: 400,
-            border: "1px solid #0078d4",
-            borderRadius: "50%",
-            "&:hover": {
-              backgroundColor: "#fff",
-            },
-            button: {
-              backgroundColor: "transparent",
-            },
-          },
-          daySelected: {
-            ...notSelectedDateStyle,
-            ...(selectedDate && { ...selectedDateStyle }),
-          },
-        }),
+          daySelected: styles.selected,
+          dayIsToday: styles.today,
+        },
 
         customDayCellRef: (
           element: HTMLElement,
           date: Date,
         ) => {
           if (element) {
+
             // Selected dates show in both calendars
             if ([minMax[0]?.getTime(), minMax[1]?.getTime()].includes(date.getTime())) {
-              element.classList.add("daySelected-146", "daySelected-124", "ms-CalendarDay-daySelected");
-            } else element.classList.remove("daySelected-146", "daySelected-124", "ms-CalendarDay-daySelected");
+              element.classList.add(styles.selected);
+            } else element.classList.remove(styles.selected);
 
             // Hover range
-            if (dateHover) {
-              if (toggle === "start" && minMax[1]) {
+            /* if (dateHover) {
+              if (toggle === "start" && !sameDay && minMax[1]) {
                 if (date.getTime() < minMax[1].getTime() && date.getTime() > dateHover.getTime()) {
-                  element.classList.add(styles.HoverRangeButton);
-                  element.classList.remove(styles.HoverRangeButtonRight);
+                  element.classList.add(styles.hoverRangeButton);
+                  element.classList.remove(styles.right);
                 } else if (date.getTime() < minMax[1].getTime() && date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.HoverRangeButtonRight);
-                } else element.classList.remove(styles.HoverRangeButton, styles.HoverRangeButtonRight);
+                  element.classList.add(styles.right);
+                } else element.classList.remove(styles.hoverRangeButton, styles.right);
               }
               if (toggle === "end" && minMax[0]) {
                 if (date.getTime() > minMax[0].getTime() && date.getTime() < dateHover.getTime()) {
-                  element.classList.add(styles.HoverRangeButton);
-                  element.classList.remove(styles.HoverRangeButtonLeft);
+                  element.classList.add(styles.hoverRangeButton);
+                  element.classList.remove(styles.left);
                 } else if (date.getTime() > minMax[0].getTime() && date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.HoverRangeButtonLeft);
-                } else element.classList.remove(styles.HoverRangeButton, styles.HoverRangeButtonLeft);
+                  element.classList.add(styles.left);
+                } else element.classList.remove(styles.hoverRangeButton, styles.left);
               }
-            } else element.classList.remove(styles.HoverRangeButton);
+            } else element.classList.remove(styles.hoverRangeButton, styles.right, styles.left); 
+ */
+            if (dateHover) {
+              if (toggle === "start" && !sameDay && minMax[1] && date.getTime() < minMax[1].getTime()) {
+                element.classList.add(styles.hoverRangeButton);
+                if (date.getTime() > dateHover.getTime()) {
+                  element.classList.remove(styles.hoverRight);
+                } else if (date.getTime() === dateHover.getTime()) {
+                  element.classList.add(styles.hoverRight);
+                } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight);
+              } else if (toggle === "end" && minMax[0] && date.getTime() > minMax[0].getTime()) {
+                element.classList.add(styles.hoverRangeButton);
+                if (date.getTime() < dateHover.getTime()) {
+                  element.classList.remove(styles.hoverLeft);
+                } else if (date.getTime() === dateHover.getTime()) {
+                  element.classList.add(styles.hoverLeft);
+                } else element.classList.remove(styles.hoverRangeButton, styles.hoverLeft);
+              } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
+            } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
 
             // Select range
             if (minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
               if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
                 if (minMax[0].getTime() === date.getTime()) {
-                  element.classList.add(styles.RangeButtonRight);
+                  element.classList.add(styles.rangeButton, styles.right);
                 } else if (minMax[1].getTime() === date.getTime()) {
-                  element.classList.add(styles.RangeButtonLeft);
+                  element.classList.add(styles.rangeButton, styles.left);
                 } else {
-                  element.classList.remove(styles.ButtonLeft);
-                  element.classList.add(styles.RangeButton);
+                  element.classList.remove(styles.left, styles.right);
+                  element.classList.add(styles.rangeButton);
                 }
-              } else element.classList.remove(styles.RangeButton);
-            } else element.classList.remove(styles.RangeButton);
+              } else element.classList.remove(styles.rangeButton);
+            } else element.classList.remove(styles.rangeButton);
 
             element.onmouseenter = () => {
               setDateHover(date);
