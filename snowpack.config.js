@@ -4,7 +4,7 @@ module.exports = {
     src: "/",
   },
   buildOptions: {
-    baseUrl: "/build",
+    baseUrl: "./",
   },
   optimize: {
     bundle: true,
