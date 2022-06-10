@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { memo } from "react";
+import React, { useState, memo } from "react";
+
 import { Calendar, defaultCalendarStrings, ICalendarStyles } from "@fluentui/react/lib/Calendar";
 import styles from "./styles.module.css";
 
@@ -10,14 +10,14 @@ type DateTypes = {
   setSameDay?: (sameDay: boolean) => void,
   minMax: (Date | undefined)[],
   toggle: "start" | "end",
-}
+};
 
 const gridStyle: Partial<ICalendarStyles> = {
   root: {
     table: {
       gridGap: "20px",
-    }
-  }
+    },
+  },
 };
 
 const notSelectedDateStyle = {
@@ -44,10 +44,12 @@ const selectedDateStyle = {
     width: "26px",
     color: "#fff",
     fontWeight: 500,
-  }
+  },
 };
 
-const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax, toggle }: DateTypes) => {
+const DatePicker = ({
+  setSelectedDate, selectedDate, minDate, setSameDay, minMax, toggle,
+}: DateTypes) => {
   const [dateHover, setDateHover] = useState<Date | undefined>();
 
   return (
@@ -68,8 +70,8 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
         styles: () => ({
           root: {
             width: "100%",
-          }
-        })
+          },
+        }),
       }}
       calendarDayProps={{
         styles: () => ({
@@ -78,18 +80,18 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
           },
           table: {
             width: "100%",
-            "tbody": {
+            tbody: {
               display: "grid",
               gap: "8px 0px",
               disableShrink: "true",
               width: "100%",
-              "tr": {
+              tr: {
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-                "th": {
+                th: {
                   display: "grid",
                   alignItems: "center",
-                }
+                },
               },
             },
           },
@@ -102,7 +104,7 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
               button: {
                 backgroundColor: "#DBF0FF",
                 borderRadius: "50%",
-              }
+              },
             },
           },
           dayButton: {
@@ -125,7 +127,7 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
           },
           daySelected: {
             ...notSelectedDateStyle,
-            ...(selectedDate && { ...selectedDateStyle })
+            ...(selectedDate && { ...selectedDateStyle }),
           },
         }),
 
@@ -134,11 +136,10 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
           date: Date,
         ) => {
           if (element) {
-
             // Selected dates show in both calendars
             if ([minMax[0]?.getTime(), minMax[1]?.getTime()].includes(date.getTime())) {
-              element.classList.add("daySelected-146", ".daySelected-124", "ms-CalendarDay-daySelected");
-            } else element.classList.remove("daySelected-146", ".daySelected-124", "ms-CalendarDay-daySelected");
+              element.classList.add("daySelected-146", "daySelected-124", "ms-CalendarDay-daySelected");
+            } else element.classList.remove("daySelected-146", "daySelected-124", "ms-CalendarDay-daySelected");
 
             // Hover range
             if (dateHover) {
@@ -168,14 +169,14 @@ const DatePicker = ({ setSelectedDate, selectedDate, minDate, setSameDay, minMax
                 } else if (minMax[1].getTime() === date.getTime()) {
                   element.classList.add(styles.RangeButtonLeft);
                 } else {
-                  element.classList.remove(styles.ButtonLeft)
-                  element.classList.add(styles.RangeButton)
-                };
+                  element.classList.remove(styles.ButtonLeft);
+                  element.classList.add(styles.RangeButton);
+                }
               } else element.classList.remove(styles.RangeButton);
             } else element.classList.remove(styles.RangeButton);
 
             element.onmouseenter = () => {
-              setDateHover(date)
+              setDateHover(date);
             };
           }
         },
