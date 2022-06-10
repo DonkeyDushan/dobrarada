@@ -1,0 +1,18 @@
+._ToggleWrapper_a8phi_1 {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 300px;
+  height: 60px;
+}
+
+._ToggleButtonSelected_a8phi_8 {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  background-color: aqua;
+}
+
+._ToggleButtonUnselected_a8phi_14 {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  background-color: rgb(139, 139, 139);
+}
