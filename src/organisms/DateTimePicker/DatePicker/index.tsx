@@ -96,26 +96,8 @@ const DatePicker = ({
             } else element.classList.remove(styles.selected);
 
             // Hover range
-            /* if (dateHover) {
-              if (toggle === "start" && !sameDay && minMax[1]) {
-                if (date.getTime() < minMax[1].getTime() && date.getTime() > dateHover.getTime()) {
-                  element.classList.add(styles.hoverRangeButton);
-                  element.classList.remove(styles.right);
-                } else if (date.getTime() < minMax[1].getTime() && date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.right);
-                } else element.classList.remove(styles.hoverRangeButton, styles.right);
-              }
-              if (toggle === "end" && minMax[0]) {
-                if (date.getTime() > minMax[0].getTime() && date.getTime() < dateHover.getTime()) {
-                  element.classList.add(styles.hoverRangeButton);
-                  element.classList.remove(styles.left);
-                } else if (date.getTime() > minMax[0].getTime() && date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.left);
-                } else element.classList.remove(styles.hoverRangeButton, styles.left);
-              }
-            } else element.classList.remove(styles.hoverRangeButton, styles.right, styles.left); 
- */
             if (dateHover) {
+              // Before
               if (toggle === "start" && !sameDay && minMax[1] && date.getTime() < minMax[1].getTime()) {
                 element.classList.add(styles.hoverRangeButton);
                 if (date.getTime() > dateHover.getTime()) {
@@ -123,7 +105,9 @@ const DatePicker = ({
                 } else if (date.getTime() === dateHover.getTime()) {
                   element.classList.add(styles.hoverRight);
                 } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight);
-              } else if (toggle === "end" && minMax[0] && date.getTime() > minMax[0].getTime()) {
+              }
+              // After
+              else if (toggle === "end" && minMax[0] && date.getTime() > minMax[0].getTime()) {
                 element.classList.add(styles.hoverRangeButton);
                 if (date.getTime() < dateHover.getTime()) {
                   element.classList.remove(styles.hoverLeft);
@@ -134,7 +118,7 @@ const DatePicker = ({
             } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
 
             // Select range
-            if (minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
+            if (!sameDay && minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
               if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
                 if (minMax[0].getTime() === date.getTime()) {
                   element.classList.add(styles.rangeButton, styles.right);
