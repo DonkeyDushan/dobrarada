@@ -1,10 +1,18 @@
 .calendar {
+  width: 14rem;
+  padding: 0;
+  height: fit-content;
+
+  & > div {
+    padding: 0;
+  }
+
   table {
     width: 100%;
 
     tbody {
       display: grid;
-      gap: 8px 0px;
+      gap: 0.75rem 0;
       disableShrink: true;
       width: 100%;
 
@@ -17,7 +25,7 @@
 
   th {
     alignItems: center;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   td {
@@ -29,7 +37,7 @@
     }
 
     button {
-      font-size: 14px;
+      font-size: 0.875rem;
       height: 100%;
       width: 28px;
 

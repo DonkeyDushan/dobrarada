@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable max-len */
 /* eslint-disable react/require-default-props */
 import React, { useState, memo } from "react";
 import { Calendar, defaultCalendarStrings, ICalendarStyles } from "@fluentui/react/lib/Calendar";
@@ -14,45 +13,6 @@ type DateTypes = {
   minMax: (Date | undefined)[],
   toggle: "start" | "end",
 };
-
-const gridStyle: Partial<ICalendarStyles> = {
-  root: {
-    table: {
-      gridGap: "20px",
-    },
-  },
-};
-
-/* const notSelectedDateStyle = {
-  backgroundColor: "transparent",
-  "&:hover": {
-    backgroundColor: "transparent",
-  },
-  "&::after": {
-    content: "none !important",
-  },
-};
-
-const selectedDateStyle = {
-  "&::after": {
-    content: "",
-    border: "none",
-  },
-  backgroundColor: "transparent",
-  "&:hover": {
-    backgroundColor: "transparent",
-  },
-  button: {
-    backgroundColor: "#0078d4 !important",
-    borderRadius: "50% !important",
-    outline: "2px solid #0078d4",
-    outlineOffset: "-1px",
-    height: "26px",
-    width: "26px",
-    color: "#fff",
-    fontWeight: 500,
-  },
-}; */
 
 const DatePicker = ({
   setSelectedDate, selectedDate, minDate, setSameDay, sameDay, minMax, toggle,
@@ -72,14 +32,9 @@ const DatePicker = ({
       strings={defaultCalendarStrings}
       minDate={minDate}
       maxDate={new Date(Date.now())}
-      styles={gridStyle}
-
       calendarDayProps={{
-        className: styles.calendar,
         styles: {
-          root: {
-            width: "100%",
-          },
+          root: styles.calendar,
           daySelected: styles.selected,
           dayIsToday: styles.today,
         },

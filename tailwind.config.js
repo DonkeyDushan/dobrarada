@@ -8,12 +8,20 @@ module.exports = {
       'gray': {
         100: '#f3f2f1', // bg hover
         200: '#edebe9', // bg selected
-        300: '#E3E3E4', // buttons
+        300: '#F4F4F4', // buttons
         'disabled': '#c5c3c2', // text
         'border': '#707070', // border
         'text': '#343A3F', //text
       },
       'main-blue': '#0078D4'
+    },
+    text: {
+      'xs': '0.75rem',
+      'sm': {
+        'fontSize': '0.875rem',
+        'lineheight': '1.5rem',
+      },
+      'md': '1rem',
     },
     extend: {
       boxShadow: {

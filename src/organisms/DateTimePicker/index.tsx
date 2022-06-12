@@ -25,23 +25,23 @@ const DateTimePicker = () => {
   }, [startDate, endDate, startTime]);
 
   return (
-    <div className="w-[511px] flex flex-col items-center m-[150px] p-[20px] border-solid border-[1px] border-gray-border">
+    <div className="w-fit flex flex-col items-center m-[150px] p-4 shadow-md">
       <ToggleButton
         toggle={toggle}
         setToggle={setToggle}
-        startDate={startDate ? `${startDate.toLocaleDateString()} ${msToTime(startTime)}` : "Zadejte"}
-        endDate={startDate || endDate ? `${endDate?.toLocaleDateString()} ${msToTime(endTime)}` : "Zadejte"}
+        startDate={startDate ? `${startDate.toLocaleDateString()} ${msToTime(startTime)}` : "Vyberte začátek"}
+        endDate={startDate || endDate ? `${endDate?.toLocaleDateString()} ${msToTime(endTime)}` : "Vyberte konec"}
       />
       {
         toggle === "start"
           ? (
-            <div className="grid grid-cols-2 w-full">
+            <div className="flex gap-6 w-full">
               <DatePicker setSelectedDate={setStartDate} selectedDate={startDate} sameDay={sameDay} minMax={[startDate, endDate]} toggle={toggle} />
               <TimePicker start setTime={setStartTime} time={startTime} />
             </div>
           )
           : (
-            <div className="grid grid-cols-2 w-full">
+            <div className="flex gap-6 w-full">
               <DatePicker setSelectedDate={setEndDate} selectedDate={endDate} minDate={startDate} sameDay={sameDay} setSameDay={setSameDay} minMax={[startDate, endDate]} toggle={toggle} />
               <TimePicker setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
             </div>
