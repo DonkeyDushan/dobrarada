@@ -79,7 +79,7 @@ const DatePicker = ({
             } else element.classList.remove(styles.rangeButton);
 
             // Hover range
-            if (dateHover) {
+            if (dateHover && !sameDay) {
               if (toggle === "start" && minMax[1] // start
                 && date.getTime() >= dateHover.getTime() && date.getTime() <= minMax[1].getTime() // hover range for start
                 && (!minMax[0] || minMax[0] && dateHover.getTime() < minMax[0].getTime()) // with selected range
