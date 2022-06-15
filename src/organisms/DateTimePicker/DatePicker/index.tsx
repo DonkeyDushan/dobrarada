@@ -112,6 +112,9 @@ const DatePicker = ({
             element.onmouseenter = () => {
               setDateHover(date);
             };
+            element.onmouseleave = () => {
+              setDateHover(undefined);
+            };
           }
         },
       }}
