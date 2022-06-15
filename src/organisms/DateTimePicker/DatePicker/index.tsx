@@ -65,7 +65,7 @@ const DatePicker = ({
             } else element.classList.remove(styles.selected);
 
             // Select range
-            if (minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
+            if (!sameDay && minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
               if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
                 element.classList.add(styles.rangeButton);
                 if (minMax[0].getTime() === date.getTime()) {
