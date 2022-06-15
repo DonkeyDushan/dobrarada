@@ -1,8 +1,17 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/require-default-props */
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import { Calendar, defaultCalendarStrings, ICalendarStyles } from "@fluentui/react/lib/Calendar";
 import styles from "./styles.module.css";
+import { registerIcons } from '@fluentui/react/lib/Styling';
+import { ChevronUp16Regular, ChevronDown16Regular } from "@fluentui/react-icons"
+
+registerIcons({
+  icons: {
+    ChevronUp: <ChevronUp16Regular />,
+    ChevronDown: <ChevronDown16Regular />
+  }
+});
 
 type DateTypes = {
   setSelectedDate: (selectedDate: Date | undefined) => void,
@@ -32,11 +41,16 @@ const DatePicker = ({
       strings={defaultCalendarStrings}
       minDate={minDate}
       maxDate={new Date(Date.now())}
+      navigationIcons={{
+        leftNavigation: "ChevronUp",
+        rightNavigation: "ChevronDown",
+      }}
       calendarDayProps={{
         styles: {
           root: styles.calendar,
           daySelected: styles.selected,
           dayIsToday: styles.today,
+          dayOutsideBounds: styles.disabled,
         },
 
         customDayCellRef: (
@@ -50,41 +64,50 @@ const DatePicker = ({
               element.classList.add(styles.selected);
             } else element.classList.remove(styles.selected);
 
-            // Hover range
-            if (dateHover) {
-              // Before
-              if (toggle === "start" && !sameDay && minMax[1] && date.getTime() < minMax[1].getTime()) {
-                element.classList.add(styles.hoverRangeButton);
-                if (date.getTime() > dateHover.getTime()) {
-                  element.classList.remove(styles.hoverRight);
-                } else if (date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.hoverRight);
-                } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight);
-              }
-              // After
-              else if (toggle === "end" && minMax[0] && date.getTime() > minMax[0].getTime()) {
-                element.classList.add(styles.hoverRangeButton);
-                if (date.getTime() < dateHover.getTime()) {
-                  element.classList.remove(styles.hoverLeft);
-                } else if (date.getTime() === dateHover.getTime()) {
-                  element.classList.add(styles.hoverLeft);
-                } else element.classList.remove(styles.hoverRangeButton, styles.hoverLeft);
-              } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
-            } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
-
             // Select range
-            if (!sameDay && minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
+            if (minMax[0] && minMax[1] && minMax[0].getTime() !== minMax[1].getTime()) {
               if (date.getTime() >= minMax[0].getTime() && date.getTime() <= minMax[1].getTime()) {
+                element.classList.add(styles.rangeButton);
                 if (minMax[0].getTime() === date.getTime()) {
-                  element.classList.add(styles.rangeButton, styles.right);
+                  element.classList.add(styles.right);
                 } else if (minMax[1].getTime() === date.getTime()) {
-                  element.classList.add(styles.rangeButton, styles.left);
+                  element.classList.add(styles.left);
                 } else {
                   element.classList.remove(styles.left, styles.right);
-                  element.classList.add(styles.rangeButton);
                 }
               } else element.classList.remove(styles.rangeButton);
             } else element.classList.remove(styles.rangeButton);
+
+            // Hover range
+            if (dateHover) {
+              if (toggle === "start" && minMax[1] // start
+                && date.getTime() >= dateHover.getTime() && date.getTime() <= minMax[1].getTime() // hover range for start
+                && (!minMax[0] || minMax[0] && dateHover.getTime() < minMax[0].getTime()) // with selected range
+                ) {
+                element.classList.add(styles.hoverRangeButton);
+                if (date.getTime() === dateHover.getTime()) {
+                  element.classList.add(styles.hoverRight);
+                  element.classList.remove(styles.hoverLeft);
+                } else if (date.getTime() === minMax[1].getTime()) {
+                  element.classList.add(styles.hoverLeft);
+                  element.classList.remove(styles.hoverRight);
+                } else element.classList.remove(styles.hoverRight, styles.hoverLeft);
+              } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
+
+              if (toggle === "end" && minMax[0] // end
+                && date.getTime() <= dateHover.getTime() && date.getTime() >= minMax[0].getTime() // hover range for end
+                && (!minMax[1] || minMax[1] && dateHover.getTime() > minMax[1].getTime()) // with selected range
+                ) {
+                element.classList.add(styles.hoverRangeButton);
+                if (date.getTime() === dateHover.getTime()) {
+                  element.classList.add(styles.hoverLeft);
+                  element.classList.remove(styles.hoverRight);
+                } else if (date.getTime() === minMax[0].getTime()) {
+                  element.classList.add(styles.hoverRight);
+                  element.classList.remove(styles.hoverLeft);
+                } else element.classList.remove(styles.hoverRight, styles.hoverLeft);
+              }
+            } else element.classList.remove(styles.hoverRangeButton, styles.hoverRight, styles.hoverLeft);
 
             element.onmouseenter = () => {
               setDateHover(date);

@@ -10,7 +10,6 @@ import ToggleButton from "./ToggleButton";
 const DateTimePicker = () => {
   const DAY_IN_MS = 86400000;
   const MIN_IN_MS = 60000;
-  /* const todaysDate= new Date((new Date()).setHours(0, 0, 0, 0)); */
 
   const [toggle, setToggle] = useState<"start" | "end">("start");
   const [sameDay, setSameDay] = useState(true);
@@ -24,6 +23,15 @@ const DateTimePicker = () => {
     if (startDate?.getTime() === endDate?.getTime() && endTime < startTime) setEndTime(DAY_IN_MS - MIN_IN_MS);
   }, [startDate, endDate, startTime]);
 
+  const restoreDefault = () => {
+    setSameDay(true);
+    setToggle("start");
+    setStartDate(undefined);
+    setEndDate(undefined);
+    setStartTime(0);
+    setEndTime(DAY_IN_MS - MIN_IN_MS);
+  };
+
   return (
     <div className="w-fit flex flex-col items-center m-[150px] p-4 shadow-md">
       <ToggleButton
@@ -31,18 +39,19 @@ const DateTimePicker = () => {
         setToggle={setToggle}
         startDate={startDate ? `${startDate.toLocaleDateString()} ${msToTime(startTime)}` : "Vyberte začátek"}
         endDate={startDate || endDate ? `${endDate?.toLocaleDateString()} ${msToTime(endTime)}` : "Vyberte konec"}
+        restoreDefault={restoreDefault}
       />
       {
         toggle === "start"
           ? (
             <div className="flex gap-6 w-full">
-              <DatePicker setSelectedDate={setStartDate} selectedDate={startDate} sameDay={sameDay} minMax={[startDate, endDate]} toggle={toggle} />
+              <DatePicker setSelectedDate={setStartDate} selectedDate={startDate || new Date(Date.now())} sameDay={sameDay} minMax={[startDate, endDate]} toggle={toggle} />
               <TimePicker start setTime={setStartTime} time={startTime} />
             </div>
           )
           : (
             <div className="flex gap-6 w-full">
-              <DatePicker setSelectedDate={setEndDate} selectedDate={endDate} minDate={startDate} sameDay={sameDay} setSameDay={setSameDay} minMax={[startDate, endDate]} toggle={toggle} />
+              <DatePicker setSelectedDate={setEndDate} selectedDate={endDate || new Date(Date.now())} minDate={startDate} sameDay={sameDay} setSameDay={setSameDay} minMax={[startDate, endDate]} toggle={toggle} />
               <TimePicker setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
             </div>
           )

@@ -19,7 +19,7 @@ const TimePicker = ({ setTime, time, start, minTime }: TimeTypes) => {
         <button
           className={classNames("flex justify-center align-middle rounded-full py-0.5 text-sm text-gray-500",
             { "hidden": minTime && num < (minTime + MIN_IN_MS * 30)},
-            { "bg-main-blue hover:bg-main-blue text-white fonnt-medium": num === time },
+            { "bg-blue-main hover:bg-blue-main text-white fonnt-medium": num === time },
             { "hover:bg-[#DBF0FF]": num !== time },
             )}
           onClick={() => setTime(num)}

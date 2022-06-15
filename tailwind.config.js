@@ -13,7 +13,12 @@ module.exports = {
         'border': '#707070', // border
         'text': '#343A3F', //text
       },
-      'main-blue': '#0078D4'
+      'blue':{
+        100: '#EBF7FF',
+        200: '#DBF0FF',
+        'main': '#0078D4',
+        'hover': '#0D6EBE',
+      }
     },
     text: {
       'xs': '0.75rem',

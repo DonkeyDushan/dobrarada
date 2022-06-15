@@ -7,7 +7,6 @@ type SingleButtonTypes = {
 }
 
 const SingleButton = ({ setToggle, date, toggle, startEnd }: SingleButtonTypes) => {
-  console.log(toggle)
   return (
     <button
       className={`z-[2] w-[50%] px-[10px] py-[5px] grid grid-rows-2}`}
