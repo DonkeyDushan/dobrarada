@@ -5,7 +5,7 @@ const Table = () => {
   return (
     <div className="grid grid-cols-5 gap-4">
       {audioList.map(({ text, src }) => (
-        <AudioButton key={src} text={text} src={`./src/atoms/audio/${src}.mp3`} />
+        <AudioButton key={src} text={text} src={`/${src}.mp3`} />
       ))}
     </div>
   )
