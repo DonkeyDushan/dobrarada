@@ -46,13 +46,13 @@ const DateTimePicker = () => {
           ? (
             <div className="flex gap-6 w-full">
               <DatePicker setSelectedDate={setStartDate} selectedDate={startDate || new Date(Date.now())} sameDay={sameDay} minMax={[startDate, endDate]} toggle={toggle} />
-              <TimePicker start setTime={setStartTime} time={startTime} />
+              <TimePicker key="startTimePicker" setTime={setStartTime} time={startTime} />
             </div>
           )
           : (
             <div className="flex gap-6 w-full">
               <DatePicker setSelectedDate={setEndDate} selectedDate={endDate || new Date(Date.now())} minDate={startDate} sameDay={sameDay} setSameDay={setSameDay} minMax={[startDate, endDate]} toggle={toggle} />
-              <TimePicker setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
+              <TimePicker key="endTimePicker" setTime={setEndTime} time={endTime} minTime={startDate?.getTime() === endDate?.getTime() ? startTime : undefined} />
             </div>
           )
       }
