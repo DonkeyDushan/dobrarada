@@ -45,6 +45,11 @@ const DatePicker = ({
         leftNavigation: "ChevronUp",
         rightNavigation: "ChevronDown",
       }}
+      calendarMonthProps={{
+        styles: {
+          disabled: { textDecoration: "line-through" },
+        }
+      }}
       calendarDayProps={{
         styles: {
           root: styles.calendar,
