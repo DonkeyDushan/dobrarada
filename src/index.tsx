@@ -1,12 +1,15 @@
 import ReactDOM from "react-dom";
 import "./global.css";
+import Table from "./organisms/Table";
 
 const App = () => {
   return (
-    <div className="flex h-screen w-screen bg-cover bg-[url('./src/atoms/images/swamp.jpeg')] p-10 justify-center">
-      <h1 className="text-7xl font-bold font-serif text-white text-shadow-h1">
+    <div className="flex h-screen w-screen justify-center items-center flex-col bg-cover bg-[url('./src/atoms/images/swamp.jpeg')] p-10"
+    >
+      <h1 className="mb-16 text-7xl font-bold font-serif text-white text-shadow-h1">
         Lesný duch
       </h1>
+      <Table />
     </div>
   )
 };

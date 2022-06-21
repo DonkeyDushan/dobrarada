@@ -7,6 +7,7 @@ module.exports = {
     colors: {
       transparent: "transparent",
       "white": "#ffffff",
+      "black": "#000000",
       "gray": {
         100: "#f3f2f1", // bg hover
         200: "#edebe9", // bg selected
