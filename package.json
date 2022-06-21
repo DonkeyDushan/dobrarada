@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "npm run build && vite preview",
-    "deploy": "npm run build && gh-pages -d build && rm -r build/"
+    "deploy": "gh-pages -d build && rm -r build/"
   },
   "dependencies": {
     "@fluentui/date-time-utilities": "^8.5.1",
