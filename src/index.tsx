@@ -10,6 +10,9 @@ const App = () => {
         Lesný duch
       </h1>
       <Table />
+      <div className="mt-10 md:absolute md:bottom-10 md:right-10 text-white">
+        web Natálie, střih Debil, nápad a sponzoring DFW, tribute to Roman Anděl
+      </div>
     </div>
   )
 };

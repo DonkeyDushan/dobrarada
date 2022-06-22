@@ -24,7 +24,7 @@ const AudioButton = ({ text, src }: Types) => {
       className="p-4 text-white bg-black/50 hover:bg-black/75"
       onClick={() => {
         start();
-        window.history.pushState("object or string", "", `/#${src}`);
+        window.history.pushState("", "", `${window.location.pathname}#${src}`);
       }}
     >
       {text}
