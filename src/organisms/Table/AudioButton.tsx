@@ -7,7 +7,7 @@ type Types = {
 }
 
 const AudioButton = ({ text, src }: Types) => {
-  let audio = new Audio(`assets/${src}.mp3`)
+  let audio = new Audio(`${src}.mp3`)
   
   const start = () => {
     audio.play()
