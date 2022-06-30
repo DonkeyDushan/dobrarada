@@ -10,8 +10,9 @@ const App = () => {
         Lesný duch
       </h1>
       <Table />
-      <div className="mt-10 md:absolute md:bottom-10 md:right-10 text-white">
-        web Natálie, střih Debil, nápad a sponzoring DFW, tribute to Roman Anděl
+      <div className="flex flex-wrap flex-col items-end mt-10 md:absolute md:bottom-10 md:right-10 text-white">
+        <p> web Natálie, střih Debil, nápad a sponzoring DFW, tribute to Roman Anděl </p>
+        <a href="https://www.youtube.com/watch?v=DY65Ms__Lp8" target="_blank" className="underline underline-offset-4"> Lesný duch (2014) </a>
       </div>
     </div>
   )
