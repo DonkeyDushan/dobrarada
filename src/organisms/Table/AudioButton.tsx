@@ -14,7 +14,7 @@ const AudioButton = ({ text, src }: Types) => {
   };
 
   useEffect(() => {
-    if (window.location.hash === `#${src}`) {
+    if (window.location.hash.includes(`${src}`)) {
       audio.play();
     }
   }, [])
