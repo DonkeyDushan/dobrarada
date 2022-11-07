@@ -7,7 +7,7 @@ const audioList = [
   { text: "Krádež lol", src: "Kradez_lol" },
   { text: "Naivní lidé", src: "Naivni_lide" },
   { text: "Nemáte hospodu", src: "Nemate_hospodu" },
-  { text: "Ostatní idé se bojí", src: "Ostatni_se_boji" },
+  { text: "Ostatní lidé se bojí", src: "Ostatni_se_boji" },
   { text: "Plus ta cena", src: "Plus_ta_cena" },
   { text: "Rád pomůžu", src: "Rad_pomuzu" },
   { text: "Tady nejde o kecy", src: "Tady_nejde_o_kecy" },
