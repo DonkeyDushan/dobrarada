@@ -9,6 +9,9 @@ const App = () => {
         Jedu, ale netěším se
       </h1>
       <Table />
+      <div className="flex flex-wrap flex-col items-end mt-10 md:absolute md:bottom-10 md:right-10 text-white">
+        <p> Vytvořeno kolektivem dělníků larpu </p>
+      </div>
     </div>
   );
 };
